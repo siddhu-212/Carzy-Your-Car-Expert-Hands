@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CarZy — Your Car, Expert Hands</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<!-- ===================== NAVBAR ===================== -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo" onclick="showPage('home')">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+      </div>
+      <span class="logo-text">CarZy</span>
+    </div>
+
+    <nav class="nav-links">
+      <a onclick="showPage('home')">Services</a>
+      <button onclick="showPage('garages')">Garages</button>
+      <button onclick="showPage('garages')">Book Now</button>
+      <button onclick="showPage('bookings')">My Bookings</button>
+    </nav>
+
+    <div class="nav-search">
+      <svg class="nav-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input
+        type="text"
+        id="navSearchInput"
+        placeholder="Find car services…"
+        onkeydown="if(event.key==='Enter'){navSearch()}"
+      />
+    </div>
+
+    <div class="nav-location">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+      </svg>
+      Madhya Pradesh, India
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-ghost" id="navLoginBtn"  onclick="openAuthModal('login','customer')">Login</button>
+      <button class="btn-gold"  id="navSignupBtn" onclick="openAuthModal('signup','customer')">Sign Up</button>
+      <button class="btn-gold"  id="navUserBtn"   style="display:none;align-items:center;gap:6px" onclick="logoutUser()"></button>
+    </div>
+
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile dropdown -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a onclick="showPage('home');toggleMenu()">Services</a>
+    <button onclick="showPage('garages');toggleMenu()">Garages</button>
+    <button onclick="showPage('garages');toggleMenu()">Book Now</button>
+    <button onclick="showPage('bookings');toggleMenu()">My Bookings</button>
+  </div>
+</nav>
+
+
+<!-- ===================== HOME PAGE ===================== -->
+<div class="page active" id="page-home">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-pattern"></div>
+    <div class="hero-content">
+      <h1 class="fade-up">Your Car, <span>Expert Hands</span></h1>
+      <p class="fade-up delay-1">Book trusted car services from top-rated garages near you</p>
+
+      <div class="search-panel fade-up delay-2">
+        <div class="search-field">
+          <label>Service</label>
+          <select id="heroService">
+            <option value="">Select a service</option>
+            <option>Car Washing</option>
+            <option>Detailing</option>
+            <option>Maintenance</option>
+            <option>Repairing</option>
+            <option>Modification</option>
+            <option>Emission Testing</option>
+          </select>
+        </div>
+        <div class="search-field">
+          <label>City</label>
+          <select id="heroArea">
+            <option value="">Select a city</option>
+            <option>Bhopal</option>
+            <option>Indore</option>
+            <option>Gwalior</option>
+            <option>Jabalpur</option>
+            <option>Ujjain</option>
+            <option>Sagar</option>
+            <option>Rewa</option>
+            <option>Satna</option>
+          </select>
+        </div>
+        <button class="btn-search" onclick="heroSearch()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+          Find Services
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Categories -->
+  <section class="categories">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2>Service Categories</h2>
+        <p>Choose from our range of professional car services</p>
+      </div>
+      <div class="cat-grid" id="catGrid"></div>
+    </div>
+  </section>
+
+  <!-- Top Rated Garages -->
+  <section class="garages-section">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2>Top Rated Garages Near You</h2>
+        <p style="display:flex;align-items:center;justify-content:center;gap:5px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;display:inline">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+          Madhya Pradesh, India
+        </p>
+      </div>
+      <div class="garage-grid" id="featuredGarages"></div>
+      <div class="center-btn">
+        <button class="btn-outline" onclick="showPage('garages')">
+          View All Garages
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:15px;height:15px">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Packages -->
+  <section class="packages">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2>Featured Services &amp; Packages</h2>
+        <p>Hand-picked packages for every car care need</p>
+      </div>
+      <div class="pkg-grid" id="packagesGrid"></div>
+    </div>
+  </section>
+
+</div><!-- end #page-home -->
+
+
+<!-- ===================== GARAGES PAGE ===================== -->
+<div class="page" id="page-garages">
+
+  <!-- Filter bar -->
+  <div class="filter-bar">
+    <div class="filter-inner">
+      <div class="filter-field">
+        <label>Service</label>
+        <select id="filterService">
+          <option value="">All Services</option>
+          <option>Car Washing</option>
+          <option>Detailing</option>
+          <option>Maintenance</option>
+          <option>Repairing</option>
+          <option>Modification</option>
+          <option>Emission Testing</option>
+        </select>
+      </div>
+      <div class="filter-field">
+        <label>City</label>
+        <select id="filterArea">
+          <option value="">All Cities</option>
+          <option>Bhopal</option>
+          <option>Indore</option>
+          <option>Gwalior</option>
+          <option>Jabalpur</option>
+          <option>Ujjain</option>
+          <option>Sagar</option>
+          <option>Rewa</option>
+          <option>Satna</option>
+        </select>
+      </div>
+      <button class="btn-filter" onclick="applyFilters()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+        </svg>
+        Apply Filters
+      </button>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="garages-page-body">
+    <div class="results-header">
+      <h1 id="resultsTitle">All Garages</h1>
+      <p id="resultsCount">20 garages found</p>
+    </div>
+    <div class="garage-grid" id="garagesList"></div>
+  </div>
+
+</div><!-- end #page-garages -->
+
+
+<!-- ===================== GARAGE DETAIL PAGE ===================== -->
+<div class="page" id="page-detail">
+
+  <div class="garage-hero-banner" id="detailBanner">
+    <div class="garage-hero-letter" id="detailLetter"></div>
+    <button class="back-btn" onclick="showPage('garages')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="detail-body">
+    <div class="detail-grid">
+      <div id="detailInfo"></div>
+      <div id="detailBooking"></div>
+    </div>
+  </div>
+
+</div><!-- end #page-detail -->
+
+
+<!-- ===================== MY BOOKINGS PAGE ===================== -->
+<div class="page" id="page-bookings">
+  <div class="bookings-page">
+    <div class="bookings-inner">
+      <h1>My Bookings</h1>
+      <p class="subtitle">Enter your email to view and manage your bookings</p>
+
+      <div class="lookup-form">
+        <label for="lookupEmail">Email Address</label>
+        <div class="lookup-row">
+          <input type="email" id="lookupEmail" placeholder="you@example.com"/>
+          <button class="btn-lookup" onclick="lookupBookings()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+            Look Up
+          </button>
+        </div>
+      </div>
+
+      <div id="bookingsResults"></div>
+    </div>
+  </div>
+</div><!-- end #page-bookings -->
+
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+
+      <!-- Brand -->
+      <div>
+        <div class="footer-brand">
+          <div class="logo-icon">
+            <svg viewBox="0 0 24 24" fill="white" style="width:18px;height:18px">
+              <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+            </svg>
+          </div>
+          <span>CarZy</span>
+        </div>
+        <p class="footer-desc">
+          Your trusted platform for finding top-rated garages and car service professionals in your area.
+        </p>
+      </div>
+
+      <!-- Services -->
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><button onclick="showGaragesWithFilter('Car Washing','')">Car Washing</button></li>
+          <li><button onclick="showGaragesWithFilter('Detailing','')">Detailing</button></li>
+          <li><button onclick="showGaragesWithFilter('Maintenance','')">Maintenance</button></li>
+          <li><button onclick="showGaragesWithFilter('Repairing','')">Repairing</button></li>
+          <li><button onclick="showGaragesWithFilter('Modification','')">Modification</button></li>
+          <li><button onclick="showGaragesWithFilter('Emission Testing','')">Emission Testing</button></li>
+        </ul>
+      </div>
+
+      <!-- Company -->
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a onclick="showPage('home')">About Us</a></li>
+          <li><a onclick="showPage('home')">How It Works</a></li>
+          <li><a onclick="showPage('home')">For Garages</a></li>
+          <li><a onclick="showPage('home')">Careers</a></li>
+          <li><a onclick="showPage('home')">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Connect -->
+      <div class="footer-col footer-contact">
+        <h4>Connect</h4>
+        <p>📍 Madhya Pradesh, India</p>
+        <p>📞 +91 98765 43210</p>
+        <div class="socials">
+          <div class="social-btn">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </div>
+          <div class="social-btn">
+            <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+          </div>
+          <div class="social-btn">
+            <svg viewBox="0 0 24 24">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2" d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="rgba(255,255,255,0.8)" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="social-btn">
+            <svg viewBox="0 0 24 24">
+              <path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/>
+              <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="rgba(13,33,55,0.9)"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end footer-grid -->
+
+    <div class="footer-bottom">
+      <p>© <span id="footerYear"></span> CarZy. Built with ❤️ for Madhya Pradesh</p>
+      <div class="footer-links">
+        <a onclick="showPage('home')">Privacy</a>
+        <a onclick="showPage('home')">Terms</a>
+      </div>
+    </div>
+
+  </div><!-- end footer-inner -->
+</footer>
+
+
+<!-- ===================== AUTH MODAL ===================== -->
+<div id="authModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:999;align-items:center;justify-content:center;padding:20px">
+  <div id="authModalInner" style="background:white;padding:32px;border-radius:20px;width:100%;max-width:420px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3)">
+  </div>
+</div>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script src="app.js"></script>
+<script>
+// Close modal when clicking outside
+document.getElementById('authModal').addEventListener('click', function(e) {
+  if (e.target === this) closeAuthModal();
+});
+// Init nav on page load
+document.addEventListener('DOMContentLoaded', function() {
+  updateNavAuth();
+});
+updateNavAuth();
+</script>
+
+</body>
+</html>
