@@ -1,6 +1,6 @@
 // ── API CONFIG ────────────────────────────────────────────────────────
 // Change this URL if you deploy the backend to a server
-const API_BASE = 'http://localhost:3000/api';
+const API_BASE = "/api";
 
 // ── STATIC DATA (used only for categories + packages, not from DB) ────
 const CATEGORIES = [
