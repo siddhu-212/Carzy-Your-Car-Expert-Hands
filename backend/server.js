@@ -10,10 +10,10 @@ const ADMIN_PASSWORD = 'carzy2026';
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, "../")));
+app.use(express.static(path.join(__dirname, "../frontend")));
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../index.html"));
+  res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
 
 // ── GARAGES ───────────────────────────────────────────────────────────
