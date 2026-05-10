@@ -50,7 +50,7 @@ The project focuses on providing a lightweight and user-friendly solution for au
 
 Download the detailed project report here:
 
-[CarZy Project Report PDF](docs/Carzy_Project_Report.pdf)
+[CarZy Project Report PDF](docs/CarZy_Project_Report.pdf)
 
 ---
 
