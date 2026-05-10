@@ -218,9 +218,9 @@ http://localhost:3000
 
 # 👨‍💻 Team Members
 
-- **Ashwarya Raj Singh**
-- **Devender Singh**
 - **Siddhant Kumar**
+- **Devender Singh**
+- **Ashwarya Raj Singh**
 - **Nitin G. Deshpande**
 
 ---
