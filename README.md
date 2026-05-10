@@ -44,6 +44,12 @@ The project focuses on providing a lightweight and user-friendly solution for au
 
 ---
 
+## 📄 Project Report
+
+[View Full Project Report](docs/Carzy_Project_Report.pdf)
+
+---
+
 # 🧰 Tech Stack
 
 ## 🎨 Frontend
